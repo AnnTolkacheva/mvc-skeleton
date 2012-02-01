@@ -4,6 +4,6 @@
 
 <jsp:include page="/users/menu"></jsp:include>
 
-<h1>Error!</h1>
+<h1>Info:</h1>
 
-<h3>${error}</h3>
+<h3>This is the home work № 3 site</h3>
