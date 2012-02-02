@@ -7,8 +7,6 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ru.hh.school.example.web.RecommendRequestInfo;
-
 @Component
 public class RecommendationService {
 
@@ -21,7 +19,7 @@ public class RecommendationService {
     this.recommendations = recommendations;
     this.userRecommendRequests = userRecommendRequests;
   }
-  
+
   public void setRecommendRequest(User recommendator, User user) {
     UserRecommendRequests uRR;
     if (!userRecommendRequests.containUser(user.getId()))

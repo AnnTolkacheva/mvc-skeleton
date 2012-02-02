@@ -7,12 +7,10 @@ import org.springframework.stereotype.Component;
 public class UserService {
 
   private final UserRepository users;
-//  private final RecommendationRepository recommendations;
 
   @Autowired
   public UserService(UserRepository users, RecommendationRepository recommendations) {
     this.users = users;
- //   this.recommendations = recommendations;
   }
 
   public User registerUser(String email, String password, String fullName) 
@@ -28,7 +26,8 @@ public class UserService {
     users.put(user);
     return user;
   }
-// переделать имя!!!
+
+// переделать имя
   public Long findUser (String email, String password)
           throws NoSuchEmailException, PasswordNotCorrectException {
     User existing = users.byEmail(email);
@@ -42,16 +41,13 @@ public class UserService {
   }
 
   public User userById(Long userId) {
- //   User user = this.users.byId(userId);
- //   return user.getFullName();
     return users.byId(userId);
   }
 
   public Resume addResume(Long userId, String work, String salary, String standing,
           String text) throws NumberFormatException {
-    int yearsStanding = Integer.parseInt(standing);
     User user = this.users.byId(userId);
-    Resume resume = new Resume(work, salary, yearsStanding, text);
+    Resume resume = new Resume(work, salary, standing, text);
     user.setResume(resume);
     return user.getResume();
   }
@@ -70,30 +66,4 @@ public class UserService {
     user.changeResume(resume);
     return user.getResume();
   }
-
- /* public void setRecommendationRequest(Long userId, Long recommendatorId) {
-    User user = this.users.byId(userId);
-    user.setRecommendationRequest(recommendatorId, this.users.byId(recommendatorId).getFullName());
-  }
-
-  public void setRecommendatorRequest(Long userId, Long recommendatorId) {
-    User user = this.users.byId(userId);
-    user.setRecommendatorRequest(recommendatorId, this.users.byId(recommendatorId).getFullName());
-  }
-
-  public Recommendation getRecommendation (Long userId, Long recommendatorId) {
-    User user = this.users.byId(userId);
-    Recommendation recommendation = user.getRecommendation(recommendatorId);
-    return recommendation;
-  }
-
-  public Iterable<Recommendation> listRecommendationsToMe(Long userId) {
-    User user = this.users.byId(userId);
-    return user.getAllRecommendRequests();
-  }
-
-  public Iterable<Recommendation> listMyRecommendations(Long userId) {
-    User user = this.users.byId(userId);
-    return user.getAllRecommendRequests();
-  }*/
 }

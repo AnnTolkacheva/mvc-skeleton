@@ -39,7 +39,6 @@
           </table>
         </c:otherwise>
       </c:choose>
-    </td>
- 
+    </td> 
   </tr>
 </table>

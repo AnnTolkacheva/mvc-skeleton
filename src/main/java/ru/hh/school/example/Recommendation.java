@@ -3,14 +3,12 @@ package ru.hh.school.example;
 import ru.hh.school.example.ddd.Entity;
 
 public class Recommendation extends Entity {
-  
-//  sprivate final Long userId;
+
   private final String recommendatorName;
   private final String userName;
   private String text;
 
-  public Recommendation(String recomendatorName, String userName) { //Long userId, String userName) {
-//    this.userId = userId;
+  public Recommendation(String recomendatorName, String userName) {
     this.userName = userName;
     this.recommendatorName = recomendatorName;
   }
@@ -22,7 +20,7 @@ public class Recommendation extends Entity {
   public String getText() {
     return text;
   }
-  
+
   public String getUserName() {
     return userName;
   }

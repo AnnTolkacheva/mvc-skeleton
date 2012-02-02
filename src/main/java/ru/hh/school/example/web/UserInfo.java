@@ -3,7 +3,7 @@ package ru.hh.school.example.web;
 import ru.hh.school.example.User;
 
 public class UserInfo {
-  
+
   private final Long id;
   private final String email;
   private final String fullName;

@@ -4,7 +4,6 @@ import ru.hh.school.example.UserRecommendRequests;
 import ru.hh.school.example.UserRecommendRequestsRepository;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class MemUserRecommendRequestsRepository extends MemRepository<UserRecommendRequests>
     implements UserRecommendRequestsRepository {
@@ -22,5 +21,4 @@ public class MemUserRecommendRequestsRepository extends MemRepository<UserRecomm
         return true;
     return false;
   }
-
 }

@@ -14,7 +14,6 @@ import ru.hh.school.example.EmailAlreadyBoundException;
 import ru.hh.school.example.EmailNotValidException;
 import ru.hh.school.example.NoSuchEmailException;
 import ru.hh.school.example.PasswordNotCorrectException;
-import ru.hh.school.example.TestException;
 
 @Controller
 @RequestMapping(value = "/users")
@@ -49,12 +48,6 @@ public class UserController {
     return "listUsers";
   }
 
- /* @RequestMapping(value = "listUsers", method = RequestMethod.POST)
-  public String toTheUserPage(Model model) {
-    model.addAttribute("users", userFacade.listUsers());
-    return "listUsers";
-  }*/
-  
   @RequestMapping(value = "userPage", method = RequestMethod.GET)
   public String userPage(@RequestParam("userId") Long userId, Model model) {
 	  model.addAttribute("resumeForm", userFacade.getResumeForm(userId));
@@ -71,9 +64,8 @@ public class UserController {
   }
 
   @RequestMapping(value = "register", method = RequestMethod.POST)
-  public String doCreateRegForm(/*HttpServletRequest request, HttpSession  session, */Model model, @ModelAttribute("userForm") UserForm userForm) {
+  public String doCreateRegForm(Model model, @ModelAttribute("userForm") UserForm userForm) {
     try {
-//      request.getSession();
       Long userId = userFacade.registerUser(userForm.getEmail(), userForm.getPassword(), userForm.getFullName());
       UserSecurity.setCurrentUserId(userId);
     } catch (EmailAlreadyBoundException e) {
@@ -162,10 +154,7 @@ public class UserController {
     } catch (NoSuchElementException e) {
     model.addAttribute("error", "You need to be logged to do this action");
     return "error";
-    }/* catch (TestException e) {
-      model.addAttribute("error", e.getTestLong().toString()+" "+e.getTestString());
-      return "error";
-      }*/
+    }
     return "redirect:/users/main";
   }
 

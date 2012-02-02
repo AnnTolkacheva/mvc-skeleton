@@ -6,7 +6,6 @@
 
 <h1>Resume submit\change</h1>
 
-
 <form:form action="/users/resume" method="POST" modelAttribute="resumeForm">
 <table>
   <tr>
@@ -14,7 +13,7 @@
       <label for="work">Work:</label>
     </td>
     <td>
-      <form:textarea cols="70" path="work" id="work"/>
+      <form:textarea cols="70" rows="1" path="work" id="work"/>
     </td>
   </tr>
   <tr>
@@ -38,7 +37,7 @@
       <label for="text">Additional information:</label>
     </td>
     <td>
-      <form:textarea rows="10" cols = "70" path="text" id="text"/>
+      <form:textarea rows="17" cols = "70" path="text" id="text"/>
     </td>
   </tr> 
   <tr>

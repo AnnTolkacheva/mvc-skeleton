@@ -20,5 +20,4 @@ public class LogForm {
   public String getPassword() {
     return password;
   }
-
 }

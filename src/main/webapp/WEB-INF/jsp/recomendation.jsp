@@ -13,11 +13,11 @@
   <table>
     <tr>
       <td><label for="userName">Recommendation to user:</label></td>
-      <td><form:textarea readonly="true" path="userName" id="userName"/></td>
+      <td><form:textarea readonly="true" rows="1" colls="15" path="userName" id="userName"/></td>
     </tr>
     <tr>
       <td><label for="text">Text of recommendation:</label></td>
-      <td><form:textarea cols="30" rows="17" path="text" id="text"/></td>
+      <td><form:textarea cols="70" rows="17" path="text" id="text"/></td>
     </tr>
     <tr>
       <td><button value="send" name="button" type="submit"> OK </button></td>

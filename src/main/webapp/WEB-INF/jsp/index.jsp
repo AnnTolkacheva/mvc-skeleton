@@ -3,7 +3,3 @@
 
 <c:redirect url="/users/about"/>
 
-<%--
-      <jsp:forward page="/users/userPage">
-        <jsp:param name="userId" value="${user.id}" />
-      </jsp:forward> --%>

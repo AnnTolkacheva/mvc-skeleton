@@ -3,11 +3,11 @@ package ru.hh.school.example.web;
 import ru.hh.school.example.Recommendation;
 
 public class RecommendRequestInfo {
+
   private final Long recommendationId;
   private final String recommendatorName;
   private final String userName;
   private final boolean isWritten;
-//  private final String text;
 
   public RecommendRequestInfo(Recommendation recommendation) {
     this.recommendationId = recommendation.getId();
@@ -19,17 +19,6 @@ public class RecommendRequestInfo {
       isWritten = false;
   }
 
-/*  public RecommendationInfo(Long id, String name, String text) {
-    if (text == null) {
-      isWritten = false;
-    } else {
-      isWritten = true;
-    }
-    userId = id;
-    userName = name;
-    this.text = text;
-  }
-*/
   public String getUserName() {
     return userName;
   }
@@ -45,8 +34,5 @@ public class RecommendRequestInfo {
   public boolean getIsWritten() {
     return isWritten;
   }
-  
- /* public String getText() {
-    return text;
-  }*/
+
 }

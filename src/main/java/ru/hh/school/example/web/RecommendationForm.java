@@ -4,17 +4,10 @@ import ru.hh.school.example.Recommendation;
 
 public class RecommendationForm {
 
-//  private Long userId;
   private Long id;
   private String recommendatorName;
   private String userName;
   private String text;
-
- /* public RecommendationForm(Long id, String userName, String text) {
-    this.userId = userId;
-    this.userName = userName;
-    this.text = text;
-  }*/
 
   public RecommendationForm() {
   }

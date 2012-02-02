@@ -12,5 +12,4 @@ public class EmailNotValidException extends Exception {
   public String getEmail() {
     return email;
   }
-
 }

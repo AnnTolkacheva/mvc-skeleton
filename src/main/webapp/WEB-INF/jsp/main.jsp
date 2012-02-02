@@ -3,22 +3,15 @@
 
 <jsp:include page="/users/menu"></jsp:include>
 
-<%--<frameset rows="70, 170, *">
-  <iframe srs="/users/menu" name="menu">
-  <frame srs="/users/about" name="about">
-  <frame srs="/users/about" name="about">
-</frameset> --%>
 <h1>My cabinet</h1>
 <br>
+<h2>Resume:</h2>
 <h3>
-  <a href="/users/listUsers">Go to the users page</a>
-  <br>
-  <a href="/users/resume">Submit or change the resume</a>
-  <form:form action="/users/main" method="POST">
-  <td><input type="submit" value="Go out"/></td>
+  <form:form action="/users/resume" method="GET">
+  <td><input type="submit" value="Submit or change the resume"/></td>
   </form:form>
-<br> 
-<h2>Ask user to recommend u:</h2>
+
+<h2>Ask any user to recommend u:</h2>
 <form:form action="/users/main" method="POST">
    <select size=5 name="recommendatorId">
      <c:forEach var="user" items="${users}">
@@ -27,16 +20,8 @@
    </select>   
    <input type="submit" value="ask recommendation" />
 </form:form>
-
-<%--<form:form action="/users/main" method="POST" modelAttribute="userInfo">
-   <form:select path="user" multiple>
-      <form:option value="-" label="--Select user"/>
-      <form:options items="${users}"/>
-   </form:select>
-   <input type="submit" value="OK" />
-</form:form> --%>
-
 <br>
+
 <h2>Asked users:</h2>
 <table>
 <c:forEach var="recommendation" items="${recommendationsToMe}">
@@ -57,6 +42,7 @@
 </c:forEach>
 </table>
 <br>
+
 <h2>Users, who ask u to recommend them:</h2>
 <table>
 <c:forEach var="recommendation" items="${myRecommendations}">
@@ -72,6 +58,7 @@
 </c:forEach>
 </table>
 <br>
+
 <h2>Users, who u already recommend:</h2>
 <table>
 <c:forEach var="recommendation" items="${myRecommendations}">
@@ -86,5 +73,4 @@
   </form:form>
 </c:forEach>
 </table>
-
 </h3>

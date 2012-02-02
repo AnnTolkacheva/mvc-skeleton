@@ -7,7 +7,7 @@ public class RecommendationInfo {
   private final String recommendatorName;
   private final String userName;
   private final String text;
-  
+
   public RecommendationInfo(Recommendation recommendation) {
     this.recommendatorName = recommendation.getRecommendatorName();
     this.userName = recommendation.getUserName();
@@ -21,7 +21,6 @@ public class RecommendationInfo {
   public String getRecommendatorName() {
     return recommendatorName;
   }
-
 
   public String getUserName() {
     return userName;
