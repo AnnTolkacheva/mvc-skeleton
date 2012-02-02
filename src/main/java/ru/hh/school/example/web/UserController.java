@@ -59,6 +59,8 @@ public class UserController {
   public String userPage(@RequestParam("userId") Long userId, Model model) {
 	  model.addAttribute("resumeForm", userFacade.getResumeForm(userId));
 	  model.addAttribute("userName", userFacade.userNameById(userId));
+    model.addAttribute("recommendationsToMe", userFacade.allRecommendRequestsToUser(userId));
+    model.addAttribute("myRecommendations", userFacade.allRecommendRequestsOfUser(userId));
 	  return "userPage";
   }
   
@@ -142,8 +144,8 @@ public class UserController {
     try {
       Long userId = UserSecurity.getCurrentUserId();
       model.addAttribute("users", userFacade.listUsers());
-      model.addAttribute("recommendationsToMe", userFacade.listRecommendators(userId));
-      model.addAttribute("myRecommendations", userFacade.listRecommendations(userId));
+      model.addAttribute("recommendationsToMe", userFacade.allRecommendRequestsToUser(userId));
+      model.addAttribute("myRecommendations", userFacade.allRecommendRequestsOfUser(userId));
     } catch (NoSuchElementException e) {
     model.addAttribute("error", "You need to be logged to do this action");
     return "error";
@@ -168,11 +170,12 @@ public class UserController {
   }
 
   @RequestMapping(value = "giverecommendation", method = RequestMethod.GET)
-  public String giveRecomendation(@RequestParam("recommendatorId") Long recommendatorId,
+  public String giveRecomendation(@RequestParam("recommendationId") Long recommendationId,
                  Model model) {
     try {
       Long userId = UserSecurity.getCurrentUserId();
-      model.addAttribute("recommendation", userFacade.getRecommendationForm(userId, recommendatorId));
+      model.addAttribute("recommendation", userFacade.getRecommendationForm(userId, recommendationId));
+      model.addAttribute("isWrittable", true);
     } catch (NoSuchElementException e) {
     model.addAttribute("error", "You need to be logged to do this action");
     return "error";
@@ -180,16 +183,16 @@ public class UserController {
     return "recomendation";
   }
 
-  @RequestMapping(value = "getrecommendation", method = RequestMethod.GET)
-  public String getRecomendation(@RequestParam("recommendatorId") Long recommendatorId,
+  @RequestMapping(value = "giverecommendation", method = RequestMethod.POST)
+  public String getRecomendation(Model model, @ModelAttribute("recommendation") RecommendationForm recommendation) {
+    userFacade.setRecommendation(recommendation);
+    return "redirect:/users/main";
+  }
+
+  @RequestMapping(value = "recommendation", method = RequestMethod.GET)
+  public String vewRecomendation(@RequestParam("recommendationId") Long recommendatorId,
                  Model model) {
-    try {
-      Long userId = UserSecurity.getCurrentUserId();
-      model.addAttribute("recommendation", userFacade.getRecommendationForm(recommendatorId, userId));
-    } catch (NoSuchElementException e) {
-    model.addAttribute("error", "You need to be logged to do this action");
-    return "error";
-    }
+    model.addAttribute("recommendation", userFacade.getRecommendationInfo(recommendatorId));
     return "recomendation";
   }
 

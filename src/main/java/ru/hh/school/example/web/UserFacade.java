@@ -2,6 +2,8 @@ package ru.hh.school.example.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +14,14 @@ public class UserFacade {
 
   private final UserRepository users;
   private final UserService userService;
+  private final RecommendationService recommendationService;
 
   @Autowired
-  public UserFacade(UserRepository users, UserService userService) {
+  public UserFacade(UserRepository users, UserService userService,
+      RecommendationService recommendationService) {
     this.users = users;
     this.userService = userService;
+    this.recommendationService = recommendationService;
   }
 
   public Iterable<UserInfo> listUsers() {
@@ -26,27 +31,34 @@ public class UserFacade {
     return users;
   }
 
-  public Iterable<RecommendationInfo> listRecommendators(Long userId) {
-    List<RecommendationInfo> recommendationInfo = new ArrayList<RecommendationInfo>();
-    for (Recommendation recommendation : userService.listRecommendationsToMe(userId)) {
-      recommendationInfo.add(new RecommendationInfo(recommendation.getId(),recommendation.getUserName(),
-       recommendation.getText()));
+  public String userNameById(Long userId) {
+      return userService.userById(userId).getFullName();
     }
-	  return recommendationInfo;
+
+  public Iterable<RecommendRequestInfo> allRecommendRequestsOfUser(Long userId) {
+    List<RecommendRequestInfo> recommendInfo = new ArrayList<RecommendRequestInfo>();
+    for (Recommendation recommendation : recommendationService.getAllRecommendationsOfUser(userId)) {
+      recommendInfo.add(new RecommendRequestInfo(recommendation));
+    }
+	  return recommendInfo;
 	}
 
-  public Iterable<RecommendationInfo> listRecommendations(Long userId) {
-    List<RecommendationInfo> recommendationInfo = new ArrayList<RecommendationInfo>();
-    for (Recommendation recommendation : userService.listMyRecommendations(userId)) {
-      recommendationInfo.add(new RecommendationInfo(recommendation.getId(),recommendation.getUserName(),
-       recommendation.getText()));
+  public Iterable<RecommendRequestInfo> allRecommendRequestsToUser(Long userId) {
+    List<RecommendRequestInfo> recommendInfo = new ArrayList<RecommendRequestInfo>();
+    for (Recommendation recommendation : recommendationService.getAllRecommendationsToUser(userId)) {
+      recommendInfo.add(new RecommendRequestInfo(recommendation));
     }
-    return recommendationInfo;
+    return recommendInfo;
   }
 
-  public void setRecommendationRequest(Long userId, Long recommendatorId) {
-    userService.setRecommendationRequest(userId, recommendatorId);
+  public void setRecommendationRequest(Long recommendatorId, Long userId) {
+    recommendationService.setRecommendRequest(userService.userById(userId),
+        userService.userById(recommendatorId));
   }
+
+ /* public void setRecommendatorRequest(Long userId, Long recommendatorId) {
+    userService.setRecommendatorRequest(userId, recommendatorId);
+  }*/
 
   public Long registerUser(String email, String password, String fullName)
           throws EmailAlreadyBoundException, EmailNotValidException {
@@ -73,13 +85,19 @@ public class UserFacade {
     		String.valueOf(resume.getStanding()), resume.getText());
   }
 
-  public RecommendationForm getRecommendationForm (Long userId, Long recommendatorId) {
-    Recommendation recommendation = userService.getRecommendation(userId, recommendatorId);
-    return new RecommendationForm(recommendation.getUserId(), recommendation.getUserName(),
-        recommendation.getText());
+  public RecommendationForm getRecommendationForm(Long recommendatorId, Long recommendationId)
+      throws NoSuchElementException {
+    Recommendation recommendation = recommendationService.getRecommendationSequred(recommendatorId,
+        recommendationId);
+    return new RecommendationForm(recommendation);
   }
-  
-  public String userNameById(Long userId) {
-	    return userService.userNameById(userId);
-	  }
+
+  public RecommendationInfo getRecommendationInfo(Long recommendationId) {
+    Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
+    return new RecommendationInfo(recommendation);
+  }
+
+  public void setRecommendation(RecommendationForm recommendationForm) {
+    recommendationService.setRecommendationText(recommendationForm.getId(), recommendationForm.getText());
+  }
 }

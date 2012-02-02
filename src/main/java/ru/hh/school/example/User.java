@@ -1,12 +1,6 @@
 package ru.hh.school.example;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import ru.hh.school.example.ddd.Entity;
-import ru.hh.school.example.web.UserInfo;
 
 public class User extends Entity {
 
@@ -14,15 +8,15 @@ public class User extends Entity {
   private String password;
   private String fullName;
   private Resume resume;
-  private Map<Long, Recommendation> recommendationsIn;
-  private Map<Long, Recommendation> recommendationsOut;
+//  private List<Long> idRecommendationsIn;
+//  private List<Long> idRecommendationsOut;
 
   public User(String email, String password, String fullName) {
     this.email = email;
     this.password = password;
     this.fullName = fullName;
-    recommendationsIn = new HashMap<Long, Recommendation>();
-    recommendationsOut = new HashMap<Long, Recommendation>();
+ //   recommendationsIn = new HashMap<Long, Recommendation>();
+ //   recommendationsOut = new HashMap<Long, Recommendation>();
   }
   
   public void setResume(Resume resume) {
@@ -40,16 +34,15 @@ public class User extends Entity {
       this.resume.change(resume);
     }
   }
+
+ /* public void setRecommendationInRequest(Long userId, String userName) {
+    if (!recommendationsIn.containsKey(userId)) {
+      Recommendation recommendation = new Recommendation(userId, userName);
+      recommendationsIn.put(userId, recommendation);
+    }
+  }
   
-  public void setRecommendationIn(Long userId, Recommendation recommendation) {
-    this.recommendationsIn.put(userId, recommendation);
-  }
-
-  public Recommendation getRecommendationIn(Long userId) {
-    return recommendationsIn.get(userId);
-  }
-
-  public void changeRecommendationIn(Long userId, String text) {
+  public void setRecommendationIn(Long userId, String text) {
     if (recommendationsIn.containsKey(userId)) {
       Recommendation recommendation = recommendationsIn.remove(userId);
       recommendation.setText(text);
@@ -57,15 +50,13 @@ public class User extends Entity {
     } 
   }
 
-  public Iterable<Recommendation> getAllRecommendationsIn() {
-    return recommendationsIn.values();
+  public Recommendation getRecommendationIn(Long userId) {
+    return recommendationsIn.get(userId);
   }
 
-  public void setRecommendationInRequest(Long userId, String userName) {
-    if (!recommendationsIn.containsKey(userId)) {
-      Recommendation recommendation = new Recommendation(userId, userName);
-      recommendationsIn.put(userId, recommendation);
-    }
+
+  public Iterable<Recommendation> getAllRecommendationsIn() {
+    return recommendationsIn.values();
   }
 
   public void setRecommendationOutRequest(Long userId, String userName) {
@@ -85,7 +76,7 @@ public class User extends Entity {
 
   public Iterable<Recommendation> getAllRecommendationsOut () {//Requests() {
     return recommendationsOut.values();
-  }
+  }*/
 
 
   public String getEmail() {

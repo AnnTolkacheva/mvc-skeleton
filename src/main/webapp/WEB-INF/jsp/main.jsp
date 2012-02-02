@@ -38,37 +38,53 @@
 
 <br>
 <h2>Asked users:</h2>
-<form:form action="/users/getrecommendation" method="GET">
-  <c:forEach var="recommendation" items="${recommendationsToMe}">
+<table>
+<c:forEach var="recommendation" items="${recommendationsToMe}">
+  <form:form action="/users/recommendation" method="GET">
+  <tr>
     <c:choose>
-      <c:when test = "${empty recommendation.text}">
-        <c:out value="User ${recommendation.userName} did not write recommendation for u yet!" />
+      <c:when test = "${recommendation.isWritten == false}">
+        <td><c:out value="User ${recommendation.recommendatorName} did not write recommendation for u yet!" /></td>
       </c:when>
       <c:otherwise>
-        <c:out value="User ${recommendation.userName} reccomend u!" />
-        <td><input type="hidden" name="recommendatorId" value="${recommendation.userId}"/></td>
+        <td><c:out value="User ${recommendation.recommendatorName} reccomend u!" /></td>
+        <td><input type="hidden" name="recommendationId" value="${recommendation.recommendationId}"/></td>
         <td><input type="submit" value="See his recommendation"/></td>
       </c:otherwise>
     </c:choose>
-  </c:forEach>
-</form:form>
+  </tr>
+  </form:form>
+</c:forEach>
+</table>
 <br>
 <h2>Users, who ask u to recommend them:</h2>
-<form:form action="/users/giverecommendation" method="GET">
-  <c:forEach var="recommendation" items="${myRecommendations}">
-    <c:choose>
-      <c:when test = "${empty recommendation.text}">
-        <c:out value="U did not write recommendation for user ${recommendation.userName} yet!" />
-        <td><input type="hidden" name="recommendatorId" value="${recommendation.userId}"/></td>
+<table>
+<c:forEach var="recommendation" items="${myRecommendations}">
+  <form:form action="/users/giverecommendation" method="GET">
+    <c:if test = "${recommendation.isWritten == false}">
+      <tr>
+        <td><c:out value="U did not write recommendation for user ${recommendation.userName} yet!"/></td>
+        <td><input type="hidden" name="recommendationId" value="${recommendation.recommendationId}"/></td>
         <td><input type="submit" value="Give recommendation"/></td>
-      </c:when>
-      <c:otherwise>
-        <c:out value="U reccomend user ${recommendation.userName}!" />
-        <td><input type="hidden" name="recommendatorId" value="${recommendation.userId}"/></td>
+      </tr>
+    </c:if>
+  </form:form>
+</c:forEach>
+</table>
+<br>
+<h2>Users, who u already recommend:</h2>
+<table>
+<c:forEach var="recommendation" items="${myRecommendations}">
+  <form:form action="/users/recommendation" method="GET">
+      <c:if test = "${recommendation.isWritten == true}">
+        <tr>
+        <td><c:out value="U reccomend user ${recommendation.userName}!"/></td>
+        <td><input type="hidden" name="recommendationId" value="${recommendation.recommendationId}"/></td>
         <td><input type="submit" value="See recommendation"/></td>
-      </c:otherwise>
-    </c:choose>
-  </c:forEach>
-</form:form>
-</h3>
+        </tr>
+      </c:if>
+  </form:form>
+</c:forEach>
+</table>
 
+</h3>

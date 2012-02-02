@@ -4,29 +4,30 @@ import ru.hh.school.example.ddd.Entity;
 
 public class Recommendation extends Entity {
   
-//  private final Long userId;
-//  private final String userName;
-  private final String text;
+//  sprivate final Long userId;
+  private final String recommendatorName;
+  private final String userName;
+  private String text;
 
-  public Recommendation(String text) { //Long userId, String userName) {
+  public Recommendation(String recomendatorName, String userName) { //Long userId, String userName) {
 //    this.userId = userId;
-//    this.userName = userName;
-    this.text = text;
+    this.userName = userName;
+    this.recommendatorName = recomendatorName;
   }
 
- /* public void setText(String text) {
+  public void setText(String text) {
     this.text = text;
-  }*/
+  }
 
   public String getText() {
     return text;
   }
   
- /* public String getUserName() {
+  public String getUserName() {
     return userName;
   }
-  
-  public Long getUserId() {
-    return userId;
-  }*/
+
+  public String getRecommendatorName() {
+    return recommendatorName;
+  }
 }

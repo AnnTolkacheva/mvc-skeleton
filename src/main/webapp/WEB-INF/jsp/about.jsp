@@ -6,4 +6,4 @@
 
 <h1>Info:</h1>
 
-<h3>This is the home work № 3 site</h3>
+<h3>This is the home work № 3 site, where u can create resume, ask other users recommend u and give recommendations them if they ask u to!</h3>

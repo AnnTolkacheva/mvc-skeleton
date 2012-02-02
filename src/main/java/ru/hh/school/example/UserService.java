@@ -7,10 +7,12 @@ import org.springframework.stereotype.Component;
 public class UserService {
 
   private final UserRepository users;
+//  private final RecommendationRepository recommendations;
 
   @Autowired
-  public UserService(UserRepository users) {
+  public UserService(UserRepository users, RecommendationRepository recommendations) {
     this.users = users;
+ //   this.recommendations = recommendations;
   }
 
   public User registerUser(String email, String password, String fullName) 
@@ -39,9 +41,10 @@ public class UserService {
     return existing.getId();
   }
 
-  public String userNameById(Long userId) {
-    User user = this.users.byId(userId);
-    return user.getFullName();
+  public User userById(Long userId) {
+ //   User user = this.users.byId(userId);
+ //   return user.getFullName();
+    return users.byId(userId);
   }
 
   public Resume addResume(Long userId, String work, String salary, String standing,
@@ -68,9 +71,14 @@ public class UserService {
     return user.getResume();
   }
 
-  public void setRecommendationRequest(Long userId, Long recommendatorId) {
+ /* public void setRecommendationRequest(Long userId, Long recommendatorId) {
     User user = this.users.byId(userId);
-    user.setRecommendRequest(recommendatorId, this.users.byId(recommendatorId).getFullName());
+    user.setRecommendationRequest(recommendatorId, this.users.byId(recommendatorId).getFullName());
+  }
+
+  public void setRecommendatorRequest(Long userId, Long recommendatorId) {
+    User user = this.users.byId(userId);
+    user.setRecommendatorRequest(recommendatorId, this.users.byId(recommendatorId).getFullName());
   }
 
   public Recommendation getRecommendation (Long userId, Long recommendatorId) {
@@ -87,5 +95,5 @@ public class UserService {
   public Iterable<Recommendation> listMyRecommendations(Long userId) {
     User user = this.users.byId(userId);
     return user.getAllRecommendRequests();
-  }
+  }*/
 }
